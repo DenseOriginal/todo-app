@@ -1,0 +1,59 @@
+<mat-card *ngIf="!errorHappened && board">
+    <mat-card-header>
+        <div mat-card-avatar [ngClass]="[board?.color || 'gray']"></div>
+
+        <mat-card-title>{{ board?.name || 'Todo Board' }}</mat-card-title>
+        <mat-card-subtitle>Basic Todo Board</mat-card-subtitle>
+
+        <div class="header-actions">
+            <button mat-stroked-button [disabled]="isNewTaskOpened" (click)="openNewTaskModal()">New Task</button>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-list role="list">
+            <mat-list-item *ngFor="let task of board?.tasks; index as idx" role="list-item" class="todo">
+                <mat-menu #moreMenu>
+                    <button mat-menu-item (click)="boardService.archiveTask(boardId, task)">
+                        <mat-icon>archive</mat-icon>
+                        <span>Archive</span>
+                    </button>
+                    <button mat-menu-item (click)="boardService.removeTask(boardId, task)">
+                        <mat-icon>delete_forever</mat-icon>
+                        <span>Remove</span>
+                    </button>
+                </mat-menu>
+
+
+                <mat-checkbox [checked]="task.isDone" (change)="flipDoneStatus(idx, $event.checked)"></mat-checkbox>
+                <span>{{ task.name }}</span>
+                <span class="spacer"></span>
+
+                <button mat-icon-button [matMenuTriggerFor]="moreMenu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>
+
+<div *ngIf="!board && !errorHappened" class="spinning-loader">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+
+<mat-card *ngIf="errorHappened">
+    <mat-card-content class="error">
+        <mat-icon inline="true" class="error__picture">cloud_off</mat-icon>
+        
+        <div class="error__text">
+            <p>Uh-oh something bad happened</p>
+            <p>This could be because:</p>
+            <br>
+
+            <ul>
+                <li>The board you're trying to reach doesn't exist</li>
+                <li>You don't have permission to view this boards</li>
+                <li>You don't have a connection to the internet</li>
+            </ul>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,93 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 220px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+::ng-deep .mat-nav-list {
+  overflow: hidden;
+
+  .mat-list-item:not(.new-board) {
+    .mat-list-item-content {
+      padding: 0px;
+    }
+
+    .active {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    & .content {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding-left: 16px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .mat-icon-button {
+      margin-left: auto;
+      margin-right: 3px;
+    }
+  }
+
+  .new-board {
+    margin-top: 8px;
+    
+    .mat-list-item-content {
+      display: flex !important;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+}
+
+.login-reminder {
+  text-align: center;
+  padding: 0px 16px;
+  margin-top: 32px;
+}
+
+.account {
+  text-align: center;
+  bottom: 0px;
+  position: absolute;
+  margin-bottom: 15px;
+  width: 100%;
+
+  &__avatar {
+    width: 1.75em;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  a {
+    width: 75%;
+  }
+}
+
+.progress-bar {
+  position: absolute !important;
+}
+
+main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

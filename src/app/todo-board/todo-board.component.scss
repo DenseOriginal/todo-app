@@ -1,0 +1,118 @@
+:host {
+  width: 60%;
+  margin-top: 5rem;
+
+  @media screen and (max-width: 600px) {
+    margin-top: 2rem;
+    width: 80%;
+  }
+}
+
+.mat-card {
+  padding: 16px 0px;
+  width: 100%;
+}
+
+.mat-card-header {
+  padding: 0px 16px;
+
+  .header-actions {
+    margin-left: auto;
+
+    button {
+      margin-top: 4px;
+    }
+  }
+}
+
+.mat-card-avatar {
+  margin-top: 8px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+@mixin todo-list-theme($theme) {
+  $todo-list-item: map-get($mat-grey, 800);
+
+  .todo {
+    background-color: darken($color: $todo-list-item, $amount: 1%);
+  }
+}
+
+::ng-deep .todo {
+  margin-bottom: 2px;
+  color: white;
+  height: fit-content !important;
+  
+  .mat-list-item-content {
+    padding: 4px 0px !important;
+    padding-left: 16px !important;
+
+    span:not(.spacer) {
+      padding: 8px 0px;
+      max-width: 75%;
+      
+      @media screen and (max-width: 600px) {
+        max-width: 62%;
+      }
+    }
+
+    .drag-handle {
+      cursor: pointer;
+      padding: 8px 0px;
+      margin-left: 8px;
+
+      .mat-icon {
+        padding: 4px 10px;
+        margin-right: 2px;
+        border-left: solid 1px #646464;
+      }
+    }
+
+    .mat-checkbox {
+      height: 27px;
+      margin-right: 0.7rem;
+    }
+  }
+}
+
+.blue { background: #71deff; color: black; }
+.green { background: #36e9b6; color: black;  }
+.yellow { background: #ffcf44; color: black; }
+.purple { background: #b15cff; }
+.red { background: #e74a4a; }
+
+.spinning-loader {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 16px;
+}
+
+.error {
+  padding: 32px 0px 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__picture {
+    font-size: 100px !important;
+
+    margin-bottom: 32px;
+  }
+
+  &__text {
+    text-align: left;
+    --list-indent: 32px;
+
+    p {
+      margin-left: calc(var(--list-indent) / 2);
+    }
+
+    ul {
+      margin-left: var(--list-indent);
+    }
+  }
+}

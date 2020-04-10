@@ -1,0 +1,50 @@
+<mat-dialog-content>
+    <div class="dialog-content">
+        <h1 mat-dialog-title>Login</h1>
+
+        <button mat-raised-button (click)="loginWithGoogle()">
+            <img src="/assets/google-logo.svg" /> Login with Google
+        </button>
+
+        <h5 class="divider">OR</h5>
+
+        <div class="login-form">
+            <h3>{{ isLogin ? 'Log in' : 'Create account' }}</h3>
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div *ngIf="!loading; else loadingSpinner">
+                    <mat-form-field>
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email" type="email" placeholder="Email" />
+    
+                        <mat-error *ngIf="(email.invalid || email.dirty) && email.touched">
+                            You must enter a valid email
+                        </mat-error>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label>Password</mat-label>
+                        <input matInput formControlName="password" type="password" placeholder="Password" />
+                        <mat-error *ngIf="(password.invalid || password.dirty) && password.touched">
+                            Password must be at least 6 characters long
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <ng-template #loadingSpinner>
+                    <mat-spinner [strokeWidth]="8" class="loading-spinner"></mat-spinner>
+                </ng-template>
+
+                <mat-error class="server-message">{{ serverMessage }}</mat-error>
+                
+                <div class="button-container">
+                    <a mat-stroked-button
+                        (click)="switchForm()">{{ isLogin ? 'New user?' : 'Returning user?' }}</a>
+
+                    <button mat-raised-button color="accent" type="submit"
+                        [disabled]="form.invalid || loading">{{ isLogin ? 'Login' : 'Sign up' }}</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</mat-dialog-content>

@@ -1,0 +1,63 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>
+      <mat-toolbar-row>
+        Profile
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-nav-list *ngIf="(afAuth.authState | async)" class="new-board">
+      <a mat-list-item *ngFor="let board of (userBoards$ | async)">
+        <mat-menu #boardMenu>
+          <button mat-menu-item (click)="updateBoard(board)">Edit</button>
+          <button mat-menu-item (click)="removeBoard(board)">Remove</button>
+        </mat-menu>
+
+        <div [routerLink]="'board/' + board.id" 
+          [routerLinkActive]="['active']" 
+          class="content"
+        >{{ board.name }}</div>
+
+        <button mat-icon-button [matMenuTriggerFor]="boardMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </a>
+
+      <a mat-list-item class="new-board">
+        <button mat-button (click)="newBoard()">Create new board</button>
+      </a>
+    </mat-nav-list>
+    <p *ngIf="!(afAuth.authState | async)"
+      class="login-reminder">Please login to continue</p>
+
+    <div class="account">
+      <a mat-button (click)="openLoginModal()" *ngIf="!(afAuth.authState | async)">🔑 Login</a>
+      <a mat-button *ngIf="afAuth.authState | async as user" [matMenuTriggerFor]="profileMenu">
+        <img class="account__avatar" [src]="user.photoURL || 'assets/default-user.svg'">
+        Profile
+      </a>
+    </div>
+
+
+    <mat-menu #profileMenu="matMenu">
+      <span mat-menu-item (click)="logout()">Logout</span>
+    </mat-menu>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Todo app</span>
+    </mat-toolbar>
+    <mat-progress-bar class="progress-bar" mode="query" *ngIf="isLoading$ | async"></mat-progress-bar>
+
+    <!-- Add Content Here -->
+    <main>
+      <ng-content></ng-content>
+    </main>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
