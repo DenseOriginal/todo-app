@@ -5,6 +5,7 @@ service cloud.firestore {
       allow create: if request.resource.data.name is string
                     && request.resource.data.private is bool
                     && request.resource.data.color is string
+                    && request.auth.uid != null;
       
       allow update: if isOwnerOfBoards()
                     && request.resource.data.owner == resource.data.owner;
